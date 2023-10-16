@@ -22,7 +22,7 @@ const Layout = () => {
     return <BackendURL />;
 
   return (
-    <div>
+    <div className="overflow-hidden gradient-background full-height">
       <BrowserRouter basename={basename}>
         <ScrollToTop>
           <Navbar />

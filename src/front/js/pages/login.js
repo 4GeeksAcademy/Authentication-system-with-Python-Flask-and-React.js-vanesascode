@@ -24,7 +24,7 @@ export const Login = () => {
     };
 
     fetch(
-      "https://verbose-yodel-5wx6jjq6rxxf46q9-3001.app.github.dev/api/token",
+      "https://fluffy-enigma-wwg6pp764q43g4xv-3001.app.github.dev/api/token",
       requestOptions
     )
       .then((resp) => {
@@ -40,7 +40,7 @@ export const Login = () => {
   };
 
   return (
-    <div className="text-center mt-5">
+    <div className="text-center mt-5 home_max-width container">
       <h1>Login</h1>
       {token && (token != "") & (token != undefined) ? (
         "You are logged in with this token" + token
@@ -51,14 +51,16 @@ export const Login = () => {
             placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="form-control mt-3"
           />
           <input
             type="password"
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="form-control mt-3"
           />
-          <button onClick={handleClick}>Login</button>
+          <button onClick={handleClick} className="btn btn-dark mt-5">Login</button>
         </div>
       )}
     </div>
