@@ -49,3 +49,40 @@ def get_hello():
     "message": "This is your private message: Hello World " + email + "!!!"
     }
     return jsonify(dictionary)
+
+
+# GET ALL USERS:
+
+@api.route('/user', methods=['GET'])
+def get_users():
+    users = User.query.all()
+
+    if not users:
+        return jsonify(message="No users found"), 404
+
+    all_users = list(map(lambda x: x.serialize(), users))
+    return jsonify(message="Users", users=all_users), 200
+
+# REGISTER USER: 
+
+@api.route('/user', methods=['POST'])
+def add_new_user():
+    request_body_user = request.get_json()
+
+    new_user = User(email=request_body_user["email"], password=request_body_user["password"], is_active=request_body_user["is_active"])
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify(request_body_user), 200
+
+# GET ONE USER BY EMAIL?????:
+
+@api.route('/user/<int:user_email>', methods=['GET'])
+def get_user(user_email):
+    user = User.query.get(user_email)
+
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    serialized_user = user.serialize()
+    return jsonify({'user': serialized_user}), 200

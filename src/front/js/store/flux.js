@@ -102,6 +102,42 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("there has been an error logging in");
         }
       },
+
+      register: async (email, password) => {
+        const requestOptions = {
+          method: "Post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            is_active: true,
+          }),
+        };
+
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/user",
+            requestOptions
+          );
+
+          if (resp.status !== 200) {
+            alert("Email or password are wrong");
+            return false;
+          }
+
+          const data = await resp.json();
+
+          console.log("this came from the backend", data);
+          // sessionStorage.setItem("token", data.access_token); //I know it's access_token cos I saw it in Postman/Google Network tool
+          // setStore({ token: data.access_token });
+          return true;
+        } catch (error) {
+          console.log("there has been an error signing up");
+        }
+      },
+
       changeColor: (index, color) => {
         //get the store
         const store = getStore();

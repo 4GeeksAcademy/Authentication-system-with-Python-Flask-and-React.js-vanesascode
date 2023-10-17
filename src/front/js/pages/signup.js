@@ -13,46 +13,42 @@ export const Signup = () => {
   console.log("this is your token", store.token);
 
   const handleClick = () => {
-    actions.login(email, password);
-    // .then(() => {
-    //This will only take place if the login() function returns true.
-    // navigate("/");
-    // });
+    actions.register(email, password);
   };
 
-  if (store.token && (store.token != "") & (store.token != undefined))
-    navigate("/");
+  // if (store.token && (store.token != "") & (store.token != undefined))
+  //   navigate("/");
 
   return (
     <div className="text-center mt-5 home_max-width container">
       <h1>Create account</h1>
-      {store.token && (store.token != "") & (store.token != undefined) ? (
+      {/* {store.token && (store.token != "") & (store.token != undefined) ? (
         "You are logged in with this token" + store.token
-      ) : (
-        <div>
-          <input
-            type="text"
-            placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="form-control mt-3"
-          />
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="form-control mt-3"
-          />
-          <button onClick={handleClick} className="btn btn-dark mt-5">
-            Sign up
-          </button>
+      ) : ( */}
+      <div>
+        <input
+          type="text"
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="form-control mt-3"
+        />
+        <input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="form-control mt-3"
+        />
+        <button onClick={handleClick} className="btn btn-dark mt-5">
+          Sign up
+        </button>
 
-          <p className="mt-3 mb-5">
-            You already have an account? <Link to="/login"> Log In then </Link>
-          </p>
-        </div>
-      )}
+        <p className="mt-3 mb-5">
+          You already have an account? <Link to="/login"> Log In then </Link>
+        </p>
+      </div>
+      {/* )} */}
     </div>
   );
 };
