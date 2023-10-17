@@ -95,11 +95,14 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await resp.json();
 
           console.log("this came from the backend", data);
-          sessionStorage.setItem("token", data.access_token); //I know it's access_token cos I saw it in Postman/Google Network tool
-          setStore({ token: data.access_token });
-          return true;
+          if (data.access_token != undefined) {
+            sessionStorage.setItem("token", data.access_token); //I know it's access_token cos I saw it in Postman/Google Network tool
+            setStore({ token: data.access_token });
+            return true;
+          }
+          console.log("token undefined");
         } catch (error) {
-          console.log("there has been an error logging in");
+          console.log("there has been an error logging in", error);
         }
       },
 

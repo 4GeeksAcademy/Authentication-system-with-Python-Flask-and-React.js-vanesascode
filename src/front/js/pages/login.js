@@ -12,16 +12,18 @@ export const Login = () => {
 
   console.log("this is your token", store.token);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    // if (!store.token || store.token == "" || store.token == undefined) {
+    //   alert("email or password wrong");
+    // }
+
     actions.login(email, password);
-    // .then(() => {
-    //This will only take place if the login() function returns true.
-    // navigate("/");
-    // });
   };
 
-  if (store.token && (store.token != "") & (store.token != undefined))
+  if (store.token && (store.token != "") & (store.token != undefined)) {
     navigate("/");
+  }
 
   return (
     <div className="text-center mt-5 home_max-width container">
@@ -30,23 +32,25 @@ export const Login = () => {
         "You are logged in with this token" + store.token
       ) : (
         <div>
-          <input
-            type="text"
-            placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="form-control mt-3"
-          />
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="form-control mt-3"
-          />
-          <button onClick={handleClick} className="btn btn-dark mt-5">
-            Login
-          </button>
+          <form onSubmit={handleClick}>
+            <input
+              type="email"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="form-control mt-3"
+            />
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="form-control mt-3"
+            />
+            <button type="submit" className="btn btn-dark mt-5">
+              Login
+            </button>
+          </form>
 
           <p className="mt-3 mb-5">
             Are you new here? <Link to="/signup">Sign up first </Link>
