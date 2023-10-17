@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import { useNavigate, Link } from "react-router-dom";
 import "../../styles/home.css";
 
-export const Login = () => {
+export const Signup = () => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +25,7 @@ export const Login = () => {
 
   return (
     <div className="text-center mt-5 home_max-width container">
-      <h1>Log In</h1>
+      <h1>Create account</h1>
       {store.token && (store.token != "") & (store.token != undefined) ? (
         "You are logged in with this token" + store.token
       ) : (
@@ -45,11 +45,11 @@ export const Login = () => {
             className="form-control mt-3"
           />
           <button onClick={handleClick} className="btn btn-dark mt-5">
-            Login
+            Sign up
           </button>
 
           <p className="mt-3 mb-5">
-            Are you new here? <Link to="/signup">Sign up first </Link>
+            You already have an account? <Link to="/login"> Log In then </Link>
           </p>
         </div>
       )}

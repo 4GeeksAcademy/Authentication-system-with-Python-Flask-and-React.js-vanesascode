@@ -38,3 +38,14 @@ def create_token():
 
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
+
+
+# Thanks to the @jwt_required() decorator, only people with token can access
+@api.route("/hello", methods=["GET"])
+@jwt_required() 
+def get_hello():
+    email = get_jwt_identity()
+    dictionary = {
+    "message": "This is your private message: Hello World " + email + "!!!"
+    }
+    return jsonify(dictionary)
