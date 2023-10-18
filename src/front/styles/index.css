@@ -1,21 +1,24 @@
 .gradient-background {
-    background: 
-    radial-gradient(at 97% 21%, rgb(196, 196, 223) 0px, transparent 40%), 
+  background: radial-gradient(
+      at 97% 21%,
+      rgb(196, 196, 223) 0px,
+      transparent 40%
+    ),
     radial-gradient(at 42% 99%, rgb(149, 226, 223) 0px, transparent 40%),
     radial-gradient(at 10% 29%, rgb(176, 179, 207) 0px, transparent 40%),
     radial-gradient(at 27% 96%, rgb(149, 192, 228) 0px, transparent 40%),
     radial-gradient(at 33% 40%, rgb(140, 146, 232) 0px, transparent 40%),
-    radial-gradient(at 99% 83%, rgb(141, 191, 224) 0px, transparent 40%);; 
-  }
+    radial-gradient(at 99% 83%, rgb(141, 191, 224) 0px, transparent 40%);
+}
 
 .full-height {
- height: 100vh;
+  height: 100vh;
 }
 
 .home_max-width {
-    max-width: 500px;
+  max-width: 500px;
 }
 
-.home_max-width {
-    max-width: 500px;
+.waiting-cursor {
+  cursor: wait;
 }

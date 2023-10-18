@@ -4,8 +4,7 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
+import { Private } from "./pages/private";
 import { Login } from "./pages/login";
 import { Signup } from "./pages/signup";
 import injectContext from "./store/appContext";
@@ -22,6 +21,8 @@ const Layout = () => {
   if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "")
     return <BackendURL />;
 
+  // /:theid" />
+
   return (
     <div className="overflow-hidden gradient-background full-height">
       <BrowserRouter basename={basename}>
@@ -29,10 +30,9 @@ const Layout = () => {
           <Navbar />
           <Routes>
             <Route element={<Home />} path="/" />
-            <Route element={<Demo />} path="/demo" />
             <Route element={<Login />} path="/login" />
             <Route element={<Signup />} path="/signup" />
-            <Route element={<Single />} path="/single/:theid" />
+            <Route element={<Private />} path="/private" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />

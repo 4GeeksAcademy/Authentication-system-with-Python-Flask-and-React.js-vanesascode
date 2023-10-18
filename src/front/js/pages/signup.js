@@ -12,37 +12,83 @@ export const Signup = () => {
 
   console.log("this is your token", store.token);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     actions.register(email, password);
+    actions.setRegistrationInProgress(true);
+    setPassword("");
+    setEmail("");
+
+    // CONDITIONALS with FRONTEND messages (below in the jsx):
+    setTimeout(() => {
+      actions.setRegistrationInProgress(false);
+      if (store.registrationSuccess) {
+        actions.setRegistrationSuccess(false);
+        navigate("/login");
+      }
+      actions.setRegistrationExists(false);
+      actions.setRegistrationEmpty(false);
+    }, 4000);
   };
 
-  // if (store.token && (store.token != "") & (store.token != undefined))
-  //   navigate("/");
-
   return (
-    <div className="text-center mt-5 home_max-width container">
-      <h1>Create account</h1>
-      {/* {store.token && (store.token != "") & (store.token != undefined) ? (
-        "You are logged in with this token" + store.token
-      ) : ( */}
+    <div
+      className={`text-center mt-5 home_max-width container  ${
+        store.registrationInProgress ? "waiting-cursor" : ""
+      }`}
+    >
+      {!store.registrationSuccess && <h1>Create account</h1>}
+
+      {store.registrationEmpty && (
+        <div className="fs-3">
+          Email and password are required.
+          <br />
+          Try again!
+        </div>
+      )}
+
+      {store.registrationExists && (
+        <div className="fs-3">
+          Sorry!
+          <br />
+          That user already exists!
+        </div>
+      )}
+
+      {store.registrationSuccess && (
+        <div className="fs-3">
+          You are successfully registered!
+          <br />
+          Now you'll be redirected so you can <b>log in</b>!
+        </div>
+      )}
+
       <div>
-        <input
-          type="text"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="form-control mt-3"
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="form-control mt-3"
-        />
-        <button onClick={handleClick} className="btn btn-dark mt-5">
-          Sign up
-        </button>
+        <form onSubmit={handleClick}>
+          <input
+            type="email"
+            placeholder="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="form-control mt-3"
+            disabled={store.registrationInProgress}
+          />
+          <input
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="form-control mt-3"
+            disabled={store.registrationInProgress}
+          />
+          <button
+            type="submit"
+            className="btn btn-dark mt-5"
+            disabled={store.registrationInProgress}
+          >
+            Sign up
+          </button>
+        </form>
 
         <p className="mt-3 mb-5">
           You already have an account? <Link to="/login"> Log In then </Link>

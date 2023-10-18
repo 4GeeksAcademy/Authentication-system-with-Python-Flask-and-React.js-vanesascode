@@ -1,9 +1,16 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    actions.logout();
+    navigate("/");
+  };
   return (
     <div className="container">
       <div className="d-flex justify-content-between mt-4">
@@ -16,7 +23,7 @@ export const Navbar = () => {
             <button className="btn btn-primary">Log In</button>
           </Link>
         ) : (
-          <button className="btn btn-primary" onClick={() => actions.logout()}>
+          <button className="btn btn-primary" onClick={handleClick}>
             Log Out
           </button>
         )}

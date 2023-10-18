@@ -14,23 +14,48 @@ export const Login = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    // if (!store.token || store.token == "" || store.token == undefined) {
-    //   alert("email or password wrong");
+    actions.login(email, password);
+    actions.setRegistrationInProgress(true);
+    // if (store.registrationSuccess) {
+    //   setPassword("");
+    //   setEmail("");
     // }
 
-    actions.login(email, password);
+    // CONDITIONALS with FRONTEND messages (below in the jsx):
+    setTimeout(() => {
+      actions.setRegistrationInProgress(false);
+      if (store.registrationSuccess) {
+        actions.setRegistrationSuccess(false);
+        navigate("/");
+      }
+      actions.setRegistrationDoesntExist(false);
+      actions.setRegistrationEmpty(false);
+    }, 2000);
   };
 
-  if (store.token && (store.token != "") & (store.token != undefined)) {
-    navigate("/");
-  }
+  // if (store.token && (store.token != "") & (store.token != undefined)) {
+  //   setTimeout(() => {
+  //     navigate("/");
+  //   }, 3000);
+  // }
 
   return (
     <div className="text-center mt-5 home_max-width container">
-      <h1>Log In</h1>
-      {store.token && (store.token != "") & (store.token != undefined) ? (
-        "You are logged in with this token" + store.token
-      ) : (
+      {!store.registrationSuccess && <h1>Log In</h1>}
+
+      {store.registrationSuccess && (
+        <div className="fs-3">You are successfully logged in!</div>
+      )}
+
+      {store.registrationEmpty && (
+        <div className="fs-3">
+          Email and password are required.
+          <br />
+          Try again!
+        </div>
+      )}
+
+      {!store.registrationSuccess && (
         <div>
           <form onSubmit={handleClick}>
             <input
