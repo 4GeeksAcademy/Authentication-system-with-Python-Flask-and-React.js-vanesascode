@@ -12,7 +12,7 @@
 }
 
 .full-height {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .home_max-width {
@@ -21,4 +21,16 @@
 
 .waiting-cursor {
   cursor: wait;
+}
+
+.logo-size {
+  height: 250x;
+  width: 250px;
+}
+
+@media screen and (min-width: 768px) {
+  .logo-size {
+    height: 370px;
+    width: 370px;
+  }
 }

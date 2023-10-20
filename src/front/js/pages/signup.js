@@ -16,8 +16,6 @@ export const Signup = () => {
     e.preventDefault();
     actions.register(email, password);
     actions.setRegistrationInProgress(true);
-    setPassword("");
-    setEmail("");
 
     // CONDITIONALS with FRONTEND messages (below in the jsx):
     setTimeout(() => {
@@ -28,15 +26,11 @@ export const Signup = () => {
       }
       actions.setRegistrationExists(false);
       actions.setRegistrationEmpty(false);
-    }, 4000);
+    }, 2000);
   };
 
   return (
-    <div
-      className={`text-center mt-5 home_max-width container  ${
-        store.registrationInProgress ? "waiting-cursor" : ""
-      }`}
-    >
+    <div className="text-center mt-5 home_max-width container">
       {!store.registrationSuccess && <h1>Create account</h1>}
 
       {store.registrationEmpty && (
@@ -71,7 +65,6 @@ export const Signup = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="form-control mt-3"
-            disabled={store.registrationInProgress}
           />
           <input
             type="password"
@@ -79,7 +72,6 @@ export const Signup = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="form-control mt-3"
-            disabled={store.registrationInProgress}
           />
           <button
             type="submit"

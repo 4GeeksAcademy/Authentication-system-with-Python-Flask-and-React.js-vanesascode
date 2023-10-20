@@ -20,9 +20,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       registrationEmpty: false,
       registrationInProgress: false,
       registrationDoesntExist: false,
+      registrationWrong: false,
     },
     actions: {
-      /////////// REGISTER USER IN DATABASE //////////////
       setRegistrationEmpty: (value) => {
         setStore({ registrationEmpty: value });
       },
@@ -38,6 +38,12 @@ const getState = ({ getStore, getActions, setStore }) => {
       setRegistrationDoesntExist: (value) => {
         setStore({ registrationInProgress: value });
       },
+      setRegistrationWrong: (value) => {
+        setStore({ registrationWrong: value });
+      },
+
+      /////////// REGISTER USER IN DATABASE //////////////
+
       register: async (email, password) => {
         const store = getStore();
 
@@ -110,10 +116,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
 
           if (resp.status !== 200) {
-            alert("Email or password are wrong");
+            setStore({ registrationWrong: true });
             return false;
-          } else {
-            setStore({ registrationSuccess: true });
           }
 
           const data = await resp.json();
@@ -125,8 +129,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (data.access_token != undefined) {
             sessionStorage.setItem("token", data.access_token); //I know it's access_token cos I saw it in Postman/Google Network tool
             setStore({ token: data.access_token });
+            setStore({ registrationSuccess: true });
             return true;
           }
+
           console.log("token undefined");
         } catch (error) {
           console.log("there has been an error logging in", error);

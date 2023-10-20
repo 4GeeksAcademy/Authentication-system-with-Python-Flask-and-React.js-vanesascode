@@ -30,6 +30,7 @@ export const Login = () => {
       }
       actions.setRegistrationDoesntExist(false);
       actions.setRegistrationEmpty(false);
+      actions.setRegistrationWrong(false);
     }, 2000);
   };
 
@@ -55,6 +56,14 @@ export const Login = () => {
         </div>
       )}
 
+      {store.registrationWrong && (
+        <div className="fs-3">
+          Email or password are wrong.
+          <br />
+          Try again!
+        </div>
+      )}
+
       {!store.registrationSuccess && (
         <div>
           <form onSubmit={handleClick}>
@@ -72,7 +81,11 @@ export const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               className="form-control mt-3"
             />
-            <button type="submit" className="btn btn-dark mt-5">
+            <button
+              type="submit"
+              className="btn btn-dark mt-5"
+              disabled={store.registrationInProgress}
+            >
               Login
             </button>
           </form>

@@ -89,43 +89,28 @@ def serve_any_other_file(path):
 
 # Create a route to authenticate your users and return JWTs(login) The
 # create_access_token() function is used to actually generate the JWT.
+
 @app.route("/api/token", methods=["POST"])
 def create_token():
-    # What we send from the login form, by separate: 
 
-    # email = request.json.get("email", None)
-    # password = request.json.get("password", None)
-
-    # What we send from the login form, altogether:
     body = request.get_json(silent=True)
-
-    # if body is None:
-    #     raise APIException(
-    #         "You need to specify the request body as a json object", status_code=400)
 
     if body is None: 
         return jsonify({"msg": "Body missing"}), 400 
     if "email" not in body:
-        return jsonify({"msg": "Email missing"}), 401
+        return jsonify({"msg": "Email missing"})
     if "password" not in body:
-        return jsonify({"msg": "Password missing"}), 401
-    
-    # user = User.query.filter_by(email=email, password=password).first()
-
-
-    # user = User.query.filter_by(email=body["email"], password=body["password"]).first()
-    # if user is None: 
-    #     return jsonify({"msg": "user doesn't exist"})
+        return jsonify({"msg": "Password missing"})
 
     user = User.query.filter_by(email=body['email']).first()
     if user is None: 
-        return jsonify({"msg": "user doesn't exist"}) 
-    # if user.password != body['password']:
+        return jsonify({"msg": "user doesn't exist"}), 402 # REALLY IMPORTANT TO PUT THIS 402 HERE, OR OTHERWISE 200 EVEN IF USER DOESN'T EXIST!!!!!!!
+    
     if not bcrypt.check_password_hash(user.password, body['password']):
-        return jsonify({'msg':'password is not correct'})  
+        return jsonify({'msg':'password is not correct'}), 402
 
     access_token = create_access_token(identity=user.email)
-    return jsonify(access_token=access_token)
+    return jsonify(access_token=access_token), 200
 
 
 # REGISTER USER: 
@@ -134,7 +119,7 @@ def create_token():
 def add_new_user():
     body = request.get_json(silent=True)
     if body is None: 
-        return jsonify({"msg": "Body missing"}), 400 ###### no va, me crea el token igualmente en Postman tampoco! lo puedo hacer desde el flux, pero no se podía aquí también??
+        return jsonify({"msg": "Body missing"}), 400
     if "email" not in body:
         return jsonify({"msg": "Email missing"})
     if "password" not in body:

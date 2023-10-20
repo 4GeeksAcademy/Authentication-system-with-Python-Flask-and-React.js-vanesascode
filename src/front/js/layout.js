@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
+import { Context } from "./store/appContext";
 
 import { Home } from "./pages/home";
 import { Private } from "./pages/private";
@@ -14,6 +15,7 @@ import { Footer } from "./component/footer";
 
 //create your first component
 const Layout = () => {
+  const { store, actions } = useContext(Context);
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
   const basename = process.env.BASENAME || "";
@@ -24,7 +26,13 @@ const Layout = () => {
   // /:theid" />
 
   return (
-    <div className="overflow-hidden gradient-background full-height">
+    <div
+      className={` ${
+        store.registrationInProgress
+          ? "waiting-cursor full-height gradient-background"
+          : "full-height gradient-background"
+      }`}
+    >
       <BrowserRouter basename={basename}>
         <ScrollToTop>
           <Navbar />

@@ -26,8 +26,9 @@ export const Home = () => {
           </Link>
         )}
       </div>
-
-      <img src={Logo} />
+      <div className="d-flex justify-content-center">
+        <img src={Logo} className="logo-size" />
+      </div>
 
       <div className=" my-5 fs-5 fw-bold">
         {!store.message && "Log in to get your private message"}
