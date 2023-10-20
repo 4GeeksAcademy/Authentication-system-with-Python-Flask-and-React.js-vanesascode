@@ -16,7 +16,7 @@ export const Home = () => {
     <div className="text-center mt-5 container home_max-width">
       <h1>Welcome to our site{store.message}!</h1>
 
-      <div className=" my-5 fs-5 fw-bold">
+      <div className=" mt-4 mb-5 fs-5 fw-bold">
         <div> </div>
         {store.message && (
           <Link to="/private">

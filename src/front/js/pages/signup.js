@@ -7,6 +7,7 @@ export const Signup = () => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const navigate = useNavigate();
 
@@ -14,7 +15,7 @@ export const Signup = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    actions.register(email, password);
+    actions.register(username, email, password);
     actions.setRegistrationInProgress(true);
 
     // CONDITIONALS with FRONTEND messages (below in the jsx):
@@ -59,6 +60,13 @@ export const Signup = () => {
 
       <div>
         <form onSubmit={handleClick}>
+        <input
+            type="text"
+            placeholder="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="form-control mt-3"
+          />
           <input
             type="email"
             placeholder="email"

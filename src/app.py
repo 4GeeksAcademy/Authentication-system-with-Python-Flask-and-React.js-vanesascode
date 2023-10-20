@@ -120,6 +120,8 @@ def add_new_user():
     body = request.get_json(silent=True)
     if body is None: 
         return jsonify({"msg": "Body missing"}), 400
+    if "name" not in body:
+        return jsonify({"msg": "Name missing"})
     if "email" not in body:
         return jsonify({"msg": "Email missing"})
     if "password" not in body:
@@ -129,6 +131,7 @@ def add_new_user():
     new_user.email = body['email']
     new_user.password = pw_hash
     new_user.is_active = True
+    new_user.name = body['name']
     db.session.add(new_user)
     db.session.commit()
 

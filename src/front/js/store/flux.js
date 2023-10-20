@@ -44,12 +44,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       /////////// REGISTER USER IN DATABASE //////////////
 
-      register: async (email, password) => {
+      register: async (name, email, password) => {
         const store = getStore();
 
-        if (!email || !password) {
+        if (!name || !email || !password) {
           setStore({ registrationEmpty: true });
-          throw new Error("Email and password are required");
+          throw new Error("All fields are required");
         }
         const requestOptions = {
           method: "Post",
@@ -60,6 +60,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             email: email,
             password: password,
             is_active: true,
+            name: name,
           }),
         };
 
@@ -95,7 +96,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         if (!email || !password) {
           setStore({ registrationEmpty: true });
-          throw new Error("Email and password are required");
+          throw new Error("All fields are required");
         }
 
         const requestOptions = {
